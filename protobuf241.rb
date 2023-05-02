@@ -12,7 +12,7 @@ class Protobuf241 < Formula
 
   keg_only "Conflicts with protobuf in main repository."
 
-  option :universal
+
 
   fails_with :llvm do
     build 2334
@@ -25,7 +25,6 @@ class Protobuf241 < Formula
     # Don't build in debug mode. See:
     # https://github.com/homebrew/homebrew/issues/9279
     ENV.prepend "CXXFLAGS", "-DNDEBUG"
-    #ENV.universal_binary if build.universal?
     system "./configure", "--disable-debug", "--disable-dependency-tracking",
                           "--prefix=#{prefix}", "--with-zlib"
     system "make"
