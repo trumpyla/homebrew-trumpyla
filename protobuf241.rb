@@ -3,6 +3,15 @@ class Protobuf241 < Formula
   url "https://github.com/google/protobuf/releases/download/v2.4.1/protobuf-2.4.1.tar.bz2"
   sha256 "cf8452347330834bbf9c65c2e68b5562ba10c95fa40d4f7ec0d2cb332674b0bf"
 
+  # GNU build tool dependencies
+  depends_on "autoconf" => :build
+  depends_on "automake" => :build
+  depends_on "libtool" => :build
+  depends_on "pkg-config" => :build
+  depends_on "gnu-sed" => :build
+  depends_on "coreutils" => :build  # For GNU tools like ginstall
+
+
   stable do
     url "https://github.com/google/protobuf/releases/download/v2.4.1/protobuf-2.4.1.tar.bz2"
     sha256 "cf8452347330834bbf9c65c2e68b5562ba10c95fa40d4f7ec0d2cb332674b0bf"
@@ -22,6 +31,13 @@ class Protobuf241 < Formula
   # Fix build with clang and libc++
 
   def install
+    # Find the path to GNU tools
+    ENV.prepend_path "PATH", Formula["coreutils"].opt_libexec/"gnubin"
+    ENV.prepend_path "PATH", Formula["gnu-sed"].opt_libexec/"gnubin"
+  
+    # Set additional environment variables if needed
+    ENV.append "LDFLAGS", "-L#{Formula["gettext"].opt_lib}"
+    ENV.append "CPPFLAGS", "-I#{Formula["gettext"].opt_include}"
     # Don't build in debug mode. See:
     # https://github.com/homebrew/homebrew/issues/9279
     ENV.prepend "CXXFLAGS", "-DNDEBUG"
