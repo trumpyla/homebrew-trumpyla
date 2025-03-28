@@ -50,7 +50,7 @@ class Protobuf241 < Formula
     system bin/"protoc", "test.proto", "--cpp_out=."
   end
   patch do
-    url "https://www.github.com/trumpyla/homebrew-trumpyla/alpine-protobuf-241.patch"
+    url "https://raw.githubusercontent.com/trumpyla/homebrew-trumpyla/refs/heads/main/alpine-protobuf-241.patch"
     sha256 "7a4d39765ac70067db506cf5eb6b36f7baca92c995993e7b12eae80715d49410"
   end
 end
