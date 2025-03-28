@@ -1,0 +1,31 @@
+--- a/src/google/protobuf/compiler/command_line_interface.cc
++++ b/src/google/protobuf/compiler/command_line_interface.cc
+@@ -910,7 +910,7 @@
+         cerr << disk_path << ": warning: directory does not exist." << endl;
+       }
+
+-      proto_path_.push_back(make_pair<string, string>(virtual_path, disk_path));
++      proto_path_.push_back(std::pair<string, string>(virtual_path, disk_path));
+     }
+
+   } else if (name == "-o" || name == "--descriptor_set_out") {
+--- a/src/google/protobuf/io/coded_stream.cc
++++ b/src/google/protobuf/io/coded_stream.cc
+@@ -452,7 +452,7 @@
+
+     // We have overrun the maximum size of a varint (10 bytes).  The data
+     // must be corrupt.
+-    return NULL;
++    return false;
+
+    done:
+     Advance(ptr - buffer_);
+--- a/src/google/protobuf/message.cc
++++ b/src/google/protobuf/message.cc
+@@ -32,6 +32,7 @@
+ //  Based on original Protocol Buffers design by
+ //  Sanjay Ghemawat, Jeff Dean, and others.
+
++#include <istream>
+ #include <stack>
+ #include <google/protobuf/stubs/hash.h>

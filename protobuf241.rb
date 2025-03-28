@@ -49,15 +49,8 @@ class Protobuf241 < Formula
     EOS
     system bin/"protoc", "test.proto", "--cpp_out=."
   end
+  patch do
+    url "https://www.github.com/trumpyla/homebrew-trumpyla/alpine-protobuf-241.patch"
+    sha256 "7a4d39765ac70067db506cf5eb6b36f7baca92c995993e7b12eae80715d49410"
+  end
 end
-__END__
-diff --git a/src/google/protobuf/message.cc b/src/google/protobuf/message.cc
-index 91e6878..0409a94 100644
---- a/src/google/protobuf/message.cc
-+++ b/src/google/protobuf/message.cc
-@@ -32,6 +32,7 @@
- //  Based on original Protocol Buffers design by
- //  Sanjay Ghemawat, Jeff Dean, and others.
-+#include <istream>
- #include <stack>
- #include <google/protobuf/stubs/hash.h>
